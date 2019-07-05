@@ -23,6 +23,12 @@ func Fetch(url string) ([]byte, error) {
 	//	return nil, err
 	//}
 	//defer resp.Body.Close()
+	defer func() {
+		if r := recover(); r != nil {
+			log.Printf("%s", r)
+			return
+		}
+	}()
 
 	// 有的网址会 403， 如下解决
 	client := &http.Client{}
